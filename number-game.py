@@ -57,11 +57,17 @@ def gameplay():
         if guess > mystery:
             print(f"Incorrect! The number is less than {guess}")
             chances_left -= 1
+            print(f"You have {chances_left} chances left")
         elif guess < mystery:
             print(f"Incorrect! The number is greater than {guess}")
             chances_left -= 1
+            print(f"You have {chances_left} chances left")
         else:
             print(f"Congratulations! You guessed the correct number!")
+            break
+
+        if chances_left == 0 and guess != mystery:
+            print(f"No more chances! The number was {mystery}. Better luck next time!")
             break
 
 
