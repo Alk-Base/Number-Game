@@ -1,5 +1,8 @@
-#Hi! If you're interested enough in reading this, just know this is my first ever project. 
-#It's pretty simple, but I'm really doing this so I can go through the whole dev experience from developing to managing with Git and pushing to GitHub
+#Simple number game. Depends on three functions:
+#1. A function for greetings, greeting()
+#2. The difficulty selection function, difficulty()
+#3. The gameplay() function
+#Beginner project
 
 import random
 

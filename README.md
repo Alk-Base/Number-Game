@@ -19,4 +19,4 @@ You choose a difficulty level
 You guess the number within a limited number of attempts
 The game tells you whether your guess is higher or lower
 
-# First project, by the way. I'll be updating it with new features as I learn a bit more.
+Side note: Beginner project
