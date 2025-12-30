@@ -42,9 +42,9 @@ def difficulty():
 
 #Main gameplay loop. Picks a random number, sets an internal variable chances_left equal to chances to keep track of how many chances you have left, and loops around.
 #chances_left determines if you can't continue
-def gameplay():
+def gameplay(chances_counter):
     mystery = random.randint(1, 100)
-    chances_left = chances
+    chances_left = chances_counter
 
     while chances_left > 0:
         try:
@@ -66,17 +66,38 @@ def gameplay():
             chances_left -= 1
             print(f"You have {chances_left} chances left")
         else:
-            print(f"Congratulations! You guessed the correct number!")
+            print(f"Congratulations! You guessed the correct number in {chances_counter - chances_left}!")
             break
 
         if chances_left == 0 and guess != mystery:
             print(f"No more chances! The number was {mystery}. Better luck next time!")
             break
 
+#Executes the difficulty() and gameplay() functions with a single call, accepting them as callback functions
+#RETURN TO THIS LATER: Why isn't it executing the gameplay() function upon running? It skips straight to the repetition() function
+def execute(exec_difficulty, exec_gameplay):
+    chances = exec_difficulty()
+    print(chances)
+    exec_gameplay(chances)
+    return chances
 
+def repetition():
 
+    while True:
+        try:
+            repeat_answer = input("Play again? Answer 'yes' or 'no': ").lower()
+        except ValueError:
+            print("Invalid input, type 'yes' or 'no'")
+
+        if repeat_answer == "yes":
+            execute(difficulty, gameplay)
+        elif repeat_answer == "no":
+            print("Thanks for playing! Goodbye")
+            break
+        else:
+            print("Invalid input, type 'yes' or 'no': ")
 
 #Function calls to start the game
 greeting()
-chances = difficulty()
-gameplay()
+execute(difficulty, gameplay)
+repetition()
