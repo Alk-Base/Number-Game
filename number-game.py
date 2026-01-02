@@ -5,6 +5,7 @@
 #Beginner project
 
 import random
+import time
 
 upper_limit = 100
 lower_limit = 1
@@ -19,6 +20,17 @@ def greeting():
     print("1. Easy: 10 chances")
     print("2. Medium: 5 chances")
     print("3. Hard: 3 chances")
+
+
+#Executes the difficulty() and gameplay() functions with a single call, accepting them as callback functions
+#RETURN TO THIS LATER: Why isn't it executing the gameplay() function upon running? It skips straight to the repetition() function
+def execute(exec_difficulty, exec_gameplay):
+    chances = exec_difficulty()
+    print(chances)
+    start_time = time.time()
+    exec_gameplay(chances, start_time)
+    return chances
+
 
 #Provides an input for the player to input their difficulty level before starting the game
 def difficulty():
@@ -42,7 +54,7 @@ def difficulty():
 
 #Main gameplay loop. Picks a random number, sets an internal variable chances_left equal to chances to keep track of how many chances you have left, and loops around.
 #chances_left determines if you can't continue
-def gameplay(chances_counter):
+def gameplay(chances_counter, start_time):
     mystery = random.randint(1, 100)
     chances_left = chances_counter
 
@@ -66,21 +78,21 @@ def gameplay(chances_counter):
             chances_left -= 1
             print(f"You have {chances_left} chances left")
         else:
-            print(f"Congratulations! You guessed the correct number in {chances_counter - chances_left}!")
+            print(f"Congratulations! You guessed the correct number in {chances_counter - chances_left} guesses and {round(elapsed_time(start_time), 2)} seconds!")
             break
+            
 
         if chances_left == 0 and guess != mystery:
             print(f"No more chances! The number was {mystery}. Better luck next time!")
             break
 
-#Executes the difficulty() and gameplay() functions with a single call, accepting them as callback functions
-#RETURN TO THIS LATER: Why isn't it executing the gameplay() function upon running? It skips straight to the repetition() function
-def execute(exec_difficulty, exec_gameplay):
-    chances = exec_difficulty()
-    print(chances)
-    exec_gameplay(chances)
-    return chances
 
+#Returns an estimate for the elapsed time of the game (could be improved for accuracy, though...)
+def elapsed_time(start_time):
+    end_time = time.time()
+    return end_time - start_time
+
+#After the first round of gameplay, repetition() uses a while loop to continuously provide the opportunity to play again to the player until they quit
 def repetition():
 
     while True:
